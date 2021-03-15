@@ -23,3 +23,16 @@ Then /I should see all the movies/ do
     step %{I should see "#{movie.title}"}
   end
 end
+
+Then(/^the director of "([^"]*)" should be "([^"]*)"$/) do |movie, director|
+  movie = Movie.find_by_title(movie)
+  expect(movie[:director]).to eq("#{director}")  
+end
+
+Then /(.*) seed movies should exist/ do | n_seeds |
+  Movie.count.should be n_seeds.to_i
+end
+
+# Make sure that one string (regexp) occurs before or after another one
+#   on the same page
+
